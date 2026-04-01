@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Business Tools — The Fire Dev</title>
+<meta name="description" content="Free tools for small business owners: ROI calculator, operations audit checklist, and automation readiness assessment.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0a;--card:#111;--border:#222;--text:#e5e5e5;--muted:#888;--accent:#f97316}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.container{max-width:680px;margin:0 auto;padding:48px 24px}
+h1{font-size:2rem;font-weight:700;margin-bottom:8px}
+.sub{color:var(--muted);margin-bottom:32px}
+h2{font-size:1.3rem;margin:36px 0 16px;font-weight:600}
+.tool{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;margin:20px 0}
+.tool h3{font-size:1.1rem;margin-bottom:8px}
+.tool p{color:var(--muted);font-size:0.88rem;margin-bottom:16px}
+label{display:block;font-size:0.82rem;color:var(--muted);margin:12px 0 4px}
+input[type=number],input[type=text],select{width:100%;padding:10px;background:#1a1a1a;border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;font-family:inherit}
+input:focus,select:focus{outline:none;border-color:var(--accent)}
+.result{background:#111;border:2px solid var(--accent);border-radius:8px;padding:20px;margin-top:16px;display:none}
+.result h4{font-size:1rem;margin-bottom:8px}
+.result .num{font-size:1.8rem;font-weight:700;color:var(--accent)}
+.result p{color:var(--muted);font-size:0.85rem;margin:4px 0}
+.btn{display:inline-block;background:var(--accent);color:#000;font-weight:600;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-size:0.95rem;margin-top:12px}
+.btn:hover{opacity:0.85}
+.checklist{list-style:none;margin:0;padding:0}
+.checklist li{padding:10px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;font-size:0.9rem}
+.checklist input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
+.score{font-size:2rem;font-weight:700;margin:16px 0;text-align:center}
+a{color:var(--accent)}
+footer{text-align:center;padding:32px 0;color:var(--muted);font-size:0.8rem;border-top:1px solid var(--border);margin-top:40px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Free Business Tools</h1>
+<p class="sub">Simple calculators and checklists to see if automation makes sense for your business.</p>
+
+<div class="tool">
+<h3>Admin Cost Calculator</h3>
+<p>How much are you spending on manual admin work?</p>
+
+<label>Hours/week your team spends on admin tasks</label>
+<input type="number" id="hours" value="20" min="1" max="168">
+
+<label>Average hourly cost (salary + benefits)</label>
+<input type="number" id="rate" value="25" min="10" max="200">
+
+<label>What percentage could be automated? (estimate)</label>
+<select id="pct">
+<option value="0.4">40% — basic automations</option>
+<option value="0.6" selected>60% — moderate automations</option>
+<option value="0.8">80% — aggressive automation</option>
+</select>
+
+<button class="btn" onclick="calculate()">Calculate Savings</button>
+
+<div class="result" id="calcResult">
+<h4>Annual savings with automation:</h4>
+<div class="num" id="savings">$0</div>
+<p id="detail1"></p>
+<p id="detail2"></p>
+<p id="detail3"></p>
+<p style="margin-top:12px"><a href="audit.html">Get a free audit to find your specific savings →</a></p>
+</div>
+</div>
+
+<div class="tool">
+<h3>Automation Readiness Checklist</h3>
+<p>Check each item that applies to your business. The more you check, the more you'd benefit from automation.</p>
+
+<ul class="checklist" id="checklist">
+<li><input type="checkbox" onchange="updateScore()"> We manually send invoices and chase late payments</li>
+<li><input type="checkbox" onchange="updateScore()"> Unsold estimates rarely get a follow-up call</li>
+<li><input type="checkbox" onchange="updateScore()"> We don't respond to Google reviews consistently</li>
+<li><input type="checkbox" onchange="updateScore()"> Our lead response time is over 1 hour</li>
+<li><input type="checkbox" onchange="updateScore()"> We use spreadsheets for tracking instead of a real system</li>
+<li><input type="checkbox" onchange="updateScore()"> Nobody monitors what competitors are doing</li>
+<li><input type="checkbox" onchange="updateScore()"> We don't send appointment reminders automatically</li>
+<li><input type="checkbox" onchange="updateScore()"> Team coordination happens via text/phone instead of a system</li>
+<li><input type="checkbox" onchange="updateScore()"> We don't have a morning briefing or daily metrics report</li>
+<li><input type="checkbox" onchange="updateScore()"> Data lives in multiple disconnected tools</li>
+</ul>
+
+<div class="score" id="scoreDisplay">0 / 10</div>
+<p id="scoreMsg" style="text-align:center;color:var(--muted);font-size:0.9rem"></p>
+</div>
+
+<div style="text-align:center;margin-top:32px">
+<p style="color:var(--muted);margin-bottom:16px">Ready to see what automation can do for your business?</p>
+<a href="audit.html" class="btn">Get Your Free Audit</a>
+</div>
+
+<footer>
+<p>&copy; 2026 The Fire Dev LLC &middot; <a href="index.html">Services</a> &middot; <a href="audit.html">Free Audit</a></p>
+</footer>
+</div>
+
+<script>
+function calculate(){
+var h=+document.getElementById('hours').value;
+var r=+document.getElementById('rate').value;
+var p=+document.getElementById('pct').value;
+var weekly=h*r*p;
+var annual=weekly*52;
+var monthly=annual/12;
+document.getElementById('savings').textContent='$'+annual.toLocaleString();
+document.getElementById('detail1').textContent='Monthly savings: $'+Math.round(monthly).toLocaleString();
+document.getElementById('detail2').textContent='Hours freed per week: '+Math.round(h*p);
+document.getElementById('detail3').textContent='System cost: ~$500/month (ROI: '+(annual/6000).toFixed(1)+'x)';
+document.getElementById('calcResult').style.display='block';
+}
+function updateScore(){
+var boxes=document.querySelectorAll('#checklist input[type=checkbox]');
+var count=0;
+boxes.forEach(function(b){if(b.checked)count++});
+document.getElementById('scoreDisplay').textContent=count+' / 10';
+var msg='';
+if(count<=2)msg='Your operations are fairly lean. Automation could still help with specific pain points.';
+else if(count<=5)msg='Moderate automation opportunity. You could save 10-15 hours/week with targeted automations.';
+else if(count<=7)msg='Strong automation candidate. You\'re likely spending $50K+/year on work that systems can handle.';
+else msg='Critical automation need. You\'re burning significant time and money on manual work. A free audit would identify $80K+ in potential savings.';
+document.getElementById('scoreMsg').textContent=msg;
+}
+</script>
+</body>
+</html>
