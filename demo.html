@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Griptly Demo — Scheduling Automation for Plumbers</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e0e0e0;line-height:1.6}
+.container{max-width:1100px;margin:0 auto;padding:20px}
+h1{font-size:2rem;margin-bottom:8px;color:#fff}
+h2{font-size:1.3rem;margin:24px 0 12px;color:#4fc3f7}
+h3{font-size:1rem;margin:16px 0 8px;color:#81d4fa}
+.subtitle{color:#888;font-size:1rem;margin-bottom:32px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:32px 0}
+@media(max-width:768px){.split{grid-template-columns:1fr}}
+.panel{background:#141414;border:1px solid #222;border-radius:12px;padding:24px}
+.panel-before{border-color:#ff5252}
+.panel-after{border-color:#4caf50}
+.panel-label{font-size:.75rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;font-weight:700}
+.panel-before .panel-label{color:#ff5252}
+.panel-after .panel-label{color:#4caf50}
+.timeline{list-style:none;padding-left:20px;border-left:2px solid #333}
+.timeline li{margin-bottom:16px;position:relative;padding-left:16px}
+.timeline li::before{content:'';position:absolute;left:-25px;top:6px;width:10px;height:10px;border-radius:50%;background:#4fc3f7}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:24px 0}
+@media(max-width:768px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+.stat{background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:20px;text-align:center}
+.stat-num{font-size:2rem;font-weight:800;color:#4caf50}
+.stat-label{font-size:.8rem;color:#888;margin-top:4px}
+.workflow{background:#141414;border:1px solid #222;border-radius:12px;padding:24px;margin:24px 0}
+.step{display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;padding:12px;border-radius:8px;background:#1a1a1a}
+.step-num{background:#4fc3f7;color:#000;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0}
+.step-content{flex:1}
+.step-title{font-weight:700;color:#fff;margin-bottom:4px}
+.step-desc{font-size:.85rem;color:#aaa}
+.cost-table{width:100%;border-collapse:collapse;margin:16px 0}
+.cost-table th,.cost-table td{padding:10px 16px;text-align:left;border-bottom:1px solid #222}
+.cost-table th{color:#4fc3f7;font-size:.8rem;text-transform:uppercase;letter-spacing:1px}
+.cost-table td:last-child{text-align:right;color:#4caf50;font-weight:700}
+.cta{background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;padding:16px 32px;font-size:1.1rem;border-radius:8px;cursor:pointer;display:inline-block;text-decoration:none;margin:24px 0;font-weight:700}
+.cta:hover{opacity:.9}
+.phone-mockup{background:#111;border:2px solid #333;border-radius:24px;padding:16px;max-width:300px;margin:0 auto}
+.sms{margin-bottom:12px;padding:10px 14px;border-radius:16px;max-width:85%;font-size:.85rem}
+.sms-in{background:#1a3a5c;margin-right:auto;border-bottom-left-radius:4px}
+.sms-out{background:#1a4a2a;margin-left:auto;border-bottom-right-radius:4px;text-align:right}
+.sms-label{font-size:.65rem;color:#666;margin-bottom:2px}
+footer{text-align:center;padding:40px 20px;color:#555;font-size:.8rem}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>What Your Operations Look Like With Griptly</h1>
+<p class="subtitle">Live demo: scheduling, dispatch, follow-up, and reviews — fully automated.</p>
+
+<div class="split">
+<div class="panel panel-before">
+<div class="panel-label">Before (Manual)</div>
+<ul class="timeline">
+<li><strong>8:02 AM</strong> — Voicemail from customer. Missed while driving.</li>
+<li><strong>8:45 AM</strong> — Call back, play phone tag for 20 min.</li>
+<li><strong>9:10 AM</strong> — Check whiteboard. Who's free Thursday?</li>
+<li><strong>9:25 AM</strong> — Text Mike: "Can you do 123 Oak St Thursday?" No reply.</li>
+<li><strong>9:40 AM</strong> — Call Mike. He's busy Wed, not Thurs. Reschedule.</li>
+<li><strong>10:00 AM</strong> — Call customer back. Thursday works.</li>
+<li><strong>Thursday</strong> — Mike forgets. No-show. Customer calls angry.</li>
+<li><strong>Friday</strong> — No review. Lost referral.</li>
+</ul>
+<p style="margin-top:16px;color:#ff5252;font-weight:700">Time spent: ~45 min per job. 8 jobs/day = 6 hours of admin.</p>
+</div>
+
+<div class="panel panel-after">
+<div class="panel-label">After (Griptly)</div>
+<div class="phone-mockup">
+<div class="sms sms-in"><div class="sms-label">Customer → Business</div>Need a plumber at 123 Oak St, kitchen leak, available Thursday</div>
+<div class="sms sms-out"><div class="sms-label">Griptly → Customer (auto, 30sec)</div>Hi! Mike will be at 123 Oak St Thursday between 9-11 AM. Reply C to confirm or R to reschedule.</div>
+<div class="sms sms-in"><div class="sms-label">Customer</div>C</div>
+<div class="sms sms-out"><div class="sms-label">Griptly → Customer (Thursday 7 AM)</div>Reminder: Mike is on his way to 123 Oak St. ETA 9:15 AM.</div>
+<div class="sms sms-out"><div class="sms-label">Griptly → Customer (2hrs after)</div>How was your service today? We'd love a quick review: ★★★★★</div>
+</div>
+<p style="margin-top:16px;color:#4caf50;font-weight:700">Time spent: 0 minutes. Fully automated.</p>
+</div>
+</div>
+
+<div class="stat-grid">
+<div class="stat"><div class="stat-num">10+</div><div class="stat-label">Hours Saved / Week</div></div>
+<div class="stat"><div class="stat-num">60%</div><div class="stat-label">Fewer No-Shows</div></div>
+<div class="stat"><div class="stat-num">5x</div><div class="stat-label">More Google Reviews</div></div>
+<div class="stat"><div class="stat-num">$4K+</div><div class="stat-label">Monthly Admin Cost Replaced</div></div>
+</div>
+
+<h2>How It Works (9-Step Workflow)</h2>
+<div class="workflow">
+<div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Customer Request</div><div class="step-desc">Text, call, or web form — all captured automatically. No missed leads.</div></div></div>
+<div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Smart Classification</div><div class="step-desc">Emergency vs. standard vs. flexible. Urgency determines dispatch speed.</div></div></div>
+<div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Check Availability</div><div class="step-desc">Scans your team's calendar. Finds the next open slot matching the service type.</div></div></div>
+<div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Smart Dispatch</div><div class="step-desc">Assigns the best tech based on skill, proximity, and current workload.</div></div></div>
+<div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Customer Confirmation</div><div class="step-desc">Instant text with tech name, date, and time window. Customer confirms or reschedules via text.</div></div></div>
+<div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-title">Day-Of Reminder</div><div class="step-desc">Morning text to customer (ETA) and tech (job details + address).</div></div></div>
+<div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-title">Job Complete</div><div class="step-desc">Tech texts "done" — system logs completion and triggers follow-up.</div></div></div>
+<div class="step"><div class="step-num">8</div><div class="step-content"><div class="step-title">Review Request</div><div class="step-desc">2 hours after service: automatic text asking for a Google review.</div></div></div>
+<div class="step"><div class="step-num">9</div><div class="step-content"><div class="step-title">Weekly Report</div><div class="step-desc">Every Friday: jobs completed, revenue, reviews, no-shows, tech utilization.</div></div></div>
+</div>
+
+<h2>What It Costs You vs. What You Save</h2>
+<table class="cost-table">
+<tr><th>Item</th><th>Cost</th></tr>
+<tr><td>Griptly (Growth plan)</td><td>$997/mo</td></tr>
+<tr><td>Twilio SMS (500 messages)</td><td>~$30/mo</td></tr>
+<tr><td>Google Workspace</td><td>$6/user</td></tr>
+<tr><td colspan="2" style="border-top:2px solid #4fc3f7"></td></tr>
+<tr><td><strong>Total cost</strong></td><td><strong>~$1,040/mo</strong></td></tr>
+<tr><td style="color:#4caf50">Admin labor replaced</td><td style="color:#4caf50">$4,000-6,000/mo</td></tr>
+<tr><td style="color:#4caf50">Net savings</td><td style="color:#4caf50;font-size:1.2rem">$3,000-5,000/mo</td></tr>
+</table>
+
+<div style="text-align:center;margin:40px 0">
+<a class="cta" href="https://thefiredev-cloud.github.io/services/audit.html">Get Your Free Operations Assessment</a>
+<p style="color:#666;font-size:.8rem;margin-top:8px">20-minute call. We show you exactly where you're leaving money on the table.</p>
+</div>
+</div>
+
+<footer>
+Griptly — Operations that run themselves.<br>
+A product of The Fire Dev LLC.
+</footer>
+</body>
+</html>
